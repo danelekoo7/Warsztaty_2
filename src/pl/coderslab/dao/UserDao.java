@@ -7,10 +7,8 @@ import java.sql.*;
 import java.util.Arrays;
 
 public class UserDao {
-
     private static final String CREATE_USER_QUERY =
             "INSERT INTO users(username, email, password) VALUES (?, ?, ?)";
-
     private static final String READ_USER_QUERY =
             "SELECT * FROM users where id = ?";
     private static final String UPDATE_USER_QUERY =
@@ -19,7 +17,6 @@ public class UserDao {
             "DELETE FROM users WHERE id = ?";
     private static final String FIND_ALL_USERS_QUERY =
             "SELECT * FROM users";
-
 
     public User create(User user) {
         try (Connection conn = DbUtil.getConnection()) {
@@ -40,7 +37,6 @@ public class UserDao {
         }
     }
 
-
     public User read(int userId) {
         try (Connection conn = DbUtil.getConnection()) {
             PreparedStatement statement = conn.prepareStatement(READ_USER_QUERY);
@@ -58,7 +54,6 @@ public class UserDao {
         }
         return null;
     }
-
 
     public void update(User user) {
         try (Connection conn = DbUtil.getConnection()) {
@@ -83,13 +78,11 @@ public class UserDao {
         }
     }
 
-
     private User[] addToArray(User u, User[] users) {
         User[] tmpUsers = Arrays.copyOf(users, users.length + 1);
         tmpUsers[users.length] = u;
         return tmpUsers;
     }
-
 
     public User[] findAll() {
         try (Connection conn = DbUtil.getConnection()) {
@@ -109,6 +102,4 @@ public class UserDao {
             return null;
         }
     }
-
-
 }
