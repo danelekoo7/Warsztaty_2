@@ -8,13 +8,15 @@ public class User {
     private String name;
     private String email;
     private String password;
+    private int userGroupId;
 
 
-    public User(int id, String name, String email, String password) {
+    public User(int id, String name, String email, String password, int userGroupId) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.hashPassword(password);
+        this.userGroupId = userGroupId;
     }
 
 
@@ -52,5 +54,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getUserGroupId() {
+        return userGroupId;
+    }
+
+    public void setUserGroupId(int userGroupId) {
+        this.userGroupId = userGroupId;
     }
 }
