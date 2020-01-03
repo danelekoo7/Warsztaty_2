@@ -4,8 +4,6 @@ import java.sql.*;
 
 public class DbUtil {
     public static final String DB_DAO = "jdbc:mysql://localhost:3306/dao?useSSL=false&characterEncoding=utf8";
-
-
     public static final String DB_USER = "root";
     public static final String DB_PASS = "coderslab";
 
