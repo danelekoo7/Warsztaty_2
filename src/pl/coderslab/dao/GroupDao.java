@@ -1,6 +1,7 @@
 package pl.coderslab.dao;
 
 import pl.coderslab.model.Group;
+import pl.coderslab.model.Solution;
 import pl.coderslab.model.User;
 import pl.coderslab.util.DbUtil;
 
@@ -56,6 +57,7 @@ public class GroupDao {
         try (Connection conn = DbUtil.getConnection()) {
             PreparedStatement statement = conn.prepareStatement(UPDATE_GROUP_QUERY);
             statement.setString(1, group.getName());
+            statement.setInt(2, group.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -85,7 +87,7 @@ public class GroupDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Group group = new Group(resultSet.getInt("id"),
-                        resultSet.getString("namename"));
+                        resultSet.getString("name"));
                 groups = addToArray(group, groups);
             }
             return groups;
@@ -93,5 +95,11 @@ public class GroupDao {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public void printGroup(Group group) {
+        int id = group.getId();
+        String name = group.getName();
+        System.out.println(id + " " + name);
     }
 }

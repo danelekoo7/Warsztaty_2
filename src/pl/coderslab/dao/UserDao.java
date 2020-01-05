@@ -1,5 +1,6 @@
 package pl.coderslab.dao;
 
+import pl.coderslab.model.Solution;
 import pl.coderslab.model.User;
 import pl.coderslab.util.DbUtil;
 
@@ -17,6 +18,10 @@ public class UserDao {
             "DELETE FROM users WHERE id = ?";
     private static final String FIND_ALL_USERS_QUERY =
             "SELECT * FROM users";
+    private static final String FIND_ALL_BY_GROUP_ID =
+            "SELECT *\n" +
+                    "FROM users\n" +
+                    "WHERE user_group_id = ?";
 
     public User create(User user) {
         try (Connection conn = DbUtil.getConnection()) {
@@ -91,6 +96,37 @@ public class UserDao {
         try (Connection conn = DbUtil.getConnection()) {
             User[] users = new User[0];
             PreparedStatement statement = conn.prepareStatement(FIND_ALL_USERS_QUERY);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                User user = new User(resultSet.getInt("id"),
+                        resultSet.getString("username"),
+                        resultSet.getString("email"),
+                        resultSet.getString("password"),
+                        resultSet.getInt("user_group_id"));
+                users = addToArray(user, users);
+            }
+            return users;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void printUser(User user) {
+        int id = user.getId();
+        String username = user.getName();
+        String email = user.getEmail();
+        String password = user.getPassword();
+        int user_group_id = user.getUserGroupId();
+        System.out.println(id + " " + username + " " + email + " " + password + " "
+                + user_group_id);
+    }
+
+    public User[] findAllByGroupId(int id) {
+        try (Connection conn = DbUtil.getConnection()) {
+            User[] users = new User[0];
+            PreparedStatement statement = conn.prepareStatement(FIND_ALL_BY_GROUP_ID);
+            statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 User user = new User(resultSet.getInt("id"),

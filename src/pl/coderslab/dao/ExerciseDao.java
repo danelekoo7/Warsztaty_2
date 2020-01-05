@@ -1,6 +1,7 @@
 package pl.coderslab.dao;
 
 import pl.coderslab.model.Exercise;
+import pl.coderslab.model.Solution;
 import pl.coderslab.model.User;
 import pl.coderslab.util.DbUtil;
 
@@ -13,7 +14,7 @@ public class ExerciseDao {
     private static final String READ_EXERCISE_QUERY =
             "SELECT * FROM exercise WHERE id= ?";
     private static final String UPDATE_EXERCISE_QUERY =
-            "UPDATE exercise SET title = ?, description = ?";
+            "UPDATE exercise SET title = ?, description = ? WHERE id = ?";
     private static final String DELETE_EXERCISE_QUERY =
             "DELETE FROM exercise WHERE id = ?";
     private static final String FIND_ALL_EXERCISE_QUERY =
@@ -59,6 +60,7 @@ public class ExerciseDao {
             PreparedStatement statement = conn.prepareStatement(UPDATE_EXERCISE_QUERY);
             statement.setString(1, exercise.getTitle());
             statement.setString(2, exercise.getDescription());
+            statement.setInt(3, exercise.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -97,5 +99,12 @@ public class ExerciseDao {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public void printExercise(Exercise exercise) {
+        int id = exercise.getId();
+        String title = exercise.getTitle();
+        String description = exercise.getDescription();
+        System.out.println(id + " " + title + " " + description);
     }
 }
