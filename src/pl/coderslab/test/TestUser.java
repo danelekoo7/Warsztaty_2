@@ -1,4 +1,4 @@
-package pl.coderslab;
+package pl.coderslab.test;
 
 import pl.coderslab.dao.UserDao;
 import pl.coderslab.model.User;

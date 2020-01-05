@@ -1,4 +1,4 @@
-package pl.coderslab;
+package pl.coderslab.test;
 
 import pl.coderslab.dao.GroupDao;
 import pl.coderslab.model.Group;

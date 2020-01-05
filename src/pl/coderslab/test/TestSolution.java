@@ -1,4 +1,4 @@
-package pl.coderslab;
+package pl.coderslab.test;
 
 import pl.coderslab.dao.SolutionDao;
 import pl.coderslab.model.Solution;
